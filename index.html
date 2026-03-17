@@ -791,12 +791,7 @@ window.closeOv=id=>document.getElementById(id).classList.add('hide');
 window.bgClose=(e,id)=>{if(e.target.id===id)closeOv(id);};
 
 // iOS hint
-if(/iphone|ipad|ipod/i.test(navigator.userAgent)&&!window.navigator.standalone){
-  const h=document.createElement('div');
-  h.style.cssText='text-align:center;padding:3px 12px;font-size:10px;color:#1a3040;background:#060e1a';
-  h.textContent="iPhone : Partager ↑ → "Sur l'écran d'accueil" pour le plein écran";
-  document.querySelector('.tabs').after(h);
-}
+if(/iphone|ipad|ipod/i.test(navigator.userAgent)&&!window.navigator.standalone){const h=document.createElement('div');h.style.cssText='text-align:center;padding:3px 12px;font-size:10px;color:#1a3040;background:#060e1a';h.textContent='iPhone : Partager puis Sur l ecran d accueil';document.querySelector('.tabs').after(h);}
 let fsReq=false;
 document.addEventListener('touchend',()=>{if(!fsReq&&document.documentElement.requestFullscreen){document.documentElement.requestFullscreen().catch(()=>{});fsReq=true;}},{once:true});
 
