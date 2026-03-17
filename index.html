@@ -135,7 +135,7 @@ html,body{background:var(--ice);color:var(--text);font-family:'Barlow',sans-seri
     <div class="htop">
       <div class="hlogo-col" onclick="clickLogo()" style="cursor:pointer;position:relative" title="">
         <div style="display:flex;align-items:center;gap:5px;height:18px;margin-bottom:5px">
-          <span class="ver">v1.0</span>
+          <span class="ver">v1.4</span>
           <div style="display:flex;align-items:center;gap:4px;font-size:10px;font-family:'Barlow Condensed',sans-serif;font-weight:700">
             <div class="ldot" id="ldot"></div>
             <span id="ltxt" style="color:var(--green)">En direct</span>
@@ -457,8 +457,7 @@ function rList(list,dayLbl,dayTab){
     const myc=mine?' myteam-match':'';
     const t1c=`team l${w1?' w':''}${t1n===myTeam?' myteam-name':''}${!t1k?' unk':''}`;
     const t2c=`team r${w2?' w':''}${t2n===myTeam?' myteam-name':''}${!t2k?' unk':''}`;
-    const lbl=m.lbl?`<span class="flbl cl" style="font-size:9px;white-space:nowrap">${m.lbl}</span>`:''
-;    if(admin){
+    const lbl=m.lbl?`<span class="flbl cl" style="font-size:9px;white-space:nowrap">${m.lbl}</span>`:'';if(admin){
       h+=`<div class="match${dn?' done':''}${myc}" style="grid-template-columns:40px 50px 1fr 28px 28px 1fr 22px">
         <div class="mnum">#${m.n}</div>
         <div class="mtime">${m.h}</div>
