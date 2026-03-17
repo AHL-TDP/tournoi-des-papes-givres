@@ -281,20 +281,22 @@ body{
   display:flex;align-items:center;justify-content:center;
   font-family:'Barlow Condensed',sans-serif;font-size:18px;font-weight:900;color:#c9a227;
 }
+.sc-input{
+  background:#08101c;border:1px solid #c9a227;border-radius:5px;
+  width:40px;height:33px;
+  font-family:'Barlow Condensed',sans-serif;font-size:18px;font-weight:900;color:#c9a227;
+  text-align:center;outline:none;padding:0;
+}
 .sc-s{color:#152436;font-size:12px}
 .mc-badge{display:none;background:#c9a227;color:#000;font-size:8px;font-weight:900;padding:2px 5px;border-radius:3px;font-family:'Barlow Condensed',sans-serif;letter-spacing:.3px;flex-shrink:0}
 .mc.mine .mc-badge{display:inline-block}
 .dep-lbl{text-align:center;padding:0 10px 6px;font-size:10px;color:#1a3040;font-style:italic}
 
-/* Admin row */
-.adm-r{display:none;justify-content:center;gap:5px;padding:4px 8px 8px;align-items:center}
-.adm-r.show{display:flex}
-.ab{width:30px;height:30px;border-radius:6px;border:none;font-size:15px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-weight:900;flex-shrink:0;font-family:'Barlow Condensed',sans-serif}
-.ab:active{opacity:.7}
 .am{background:#c0392b;color:#fff}
 .ap{background:#27ae60;color:#fff}
-.ax{background:#152436;color:#4fc3f7;font-size:11px}
-.al{font-size:9px;color:#2a4a6a;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:55px;font-family:'Barlow Condensed',sans-serif;text-transform:uppercase}
+.mc-rst{width:16px;height:16px;border-radius:50%;border:1.5px solid #c0392b;background:transparent;cursor:pointer;flex-shrink:0;display:none;align-items:center;justify-content:center;font-size:14px;color:#c0392b;font-weight:900;margin-left:2px;line-height:1}
+.mc-rst:hover{color:#ff4444}
+.mc-rst.vis{display:flex}
 
 /* ── CLASSEMENT ── */
 .pool-hdr{
@@ -634,30 +636,31 @@ function card(m){
   const s2=sc&&sc.s2!=null?sc.s2:'–';
   const t1m=mine&&myTeam===t1n,t2m=mine&&myTeam===t2n;
 
-  const admRow=isAdmin?`<div class="adm-r show">
-    <button class="ab am" onclick="adj('${m.id}','s1',-1)">−</button>
-    <span class="al">${t1n.substring(0,12)}</span>
-    <button class="ab ap" onclick="adj('${m.id}','s1',1)">+</button>
-    <button class="ab ax" onclick="del('${m.id}')">✕</button>
-    <button class="ab am" onclick="adj('${m.id}','s2',-1)">−</button>
-    <span class="al">${t2n.substring(0,12)}</span>
-    <button class="ab ap" onclick="adj('${m.id}','s2',1)">+</button>
-  </div>`:'';
+
 
   const dLbl=(isP&&(!t1k||!t2k))?`<div class="dep-lbl">${m.dl||''}</div>`:'';
 
+  const hasS=sc&&sc.s1!=null;
+  const rstBtn=isAdmin?`<div class="mc-rst${hasS?' vis':''}" onclick="del('${m.id}')" title="Remettre a zero">&#x2715;</div>`:'';
+  const sc1h=isAdmin
+    ?`<input class="sc-input" type="number" min="0" value="${sc&&sc.s1!=null?sc.s1:''}" placeholder="-" onchange="setScore('${m.id}','s1',this.value)" onclick="this.select()">`
+    :`<div class="sc">${s1}</div>`;
+  const sc2h=isAdmin
+    ?`<input class="sc-input" type="number" min="0" value="${sc&&sc.s2!=null?sc.s2:''}" placeholder="-" onchange="setScore('${m.id}','s2',this.value)" onclick="this.select()">`
+    :`<div class="sc">${s2}</div>`;
   return`<div class="mc${mine?' mine':''}${isP?' playoff':''}">
     <div class="mc-row">
       <span class="mc-num">#${m.n}</span>
       <span class="mc-time">${m.h}</span>
       <div class="mc-teams">
         <span class="mc-t${t1k?'':' unk'}${t1m?' mine-t':''}">${t1n}</span>
-        <div class="mc-scores"><div class="sc">${s1}</div><span class="sc-s">:</span><div class="sc">${s2}</div></div>
+        <div class="mc-scores">${sc1h}<span class="sc-s">:</span>${sc2h}</div>
         <span class="mc-t${t2k?'':' unk'}${t2m?' mine-t':''}">${t2n}</span>
       </div>
-      <span class="mc-badge">MON ÉQUIPE</span>
+      <span class="mc-badge">MON EQUIPE</span>
+      ${rstBtn}
     </div>
-    ${dLbl}${admRow}
+    ${dLbl}
   </div>`;
 }
 
@@ -739,6 +742,13 @@ function setAdmUI(){
   document.querySelector('.hlogo').style.filter=isAdmin?'drop-shadow(0 0 8px #4caf50)':'none';
 }
 
+window.setScore=async(id,side,val)=>{
+  const v=parseInt(val);
+  if(isNaN(v)||v<0)return;
+  const sc=scores[id]||{s1:null,s2:null};
+  const news={s1:sc.s1!=null?+sc.s1:0,s2:sc.s2!=null?+sc.s2:0,[side]:v};
+  await set(ref(db,'scores/'+id),news);
+};
 window.adj=async(id,side,d)=>{
   const sc=scores[id]||{s1:null,s2:null};
   let v=sc[side]!=null?+sc[side]:0;
