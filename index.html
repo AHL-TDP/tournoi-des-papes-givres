@@ -42,7 +42,7 @@ html,body{background:var(--ice);color:var(--text);font-family:'Barlow',sans-seri
 .cpopup a{font-family:'Barlow Condensed',sans-serif;font-size:22px;font-weight:900;color:var(--accent);text-decoration:none;letter-spacing:1px}
 .tabs{display:flex;gap:2px;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;border-bottom:2px solid var(--accent)}
 .tabs::-webkit-scrollbar{display:none}
-.tab{flex:1;min-width:58px;padding:9px 4px 7px;background:var(--ice3);border:none;border-radius:6px 6px 0 0;color:var(--muted);font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.3px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:2px;border-bottom:2px solid transparent}
+.tab{flex:1;min-width:62px;padding:9px 4px 7px;background:var(--ice3);border:none;border-radius:6px 6px 0 0;color:var(--muted);font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.3px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:2px;border-bottom:2px solid transparent}
 .tab.active{background:var(--ice2);color:var(--accent);border-bottom-color:var(--ice2);margin-bottom:-2px;position:relative;z-index:1}
 .tcnt{font-size:10px;font-weight:600;background:rgba(0,0,0,.3);border-radius:8px;padding:1px 5px;color:var(--muted)}
 .tab.active .tcnt{color:var(--accent2)}
@@ -215,7 +215,7 @@ const PW="TDPG2026";
 const PA=['les copains','les gladiateurs','les saucissons briochés','les trolls des glaces','team animals','les familys'];
 const PB=['sugars daddys','les saucisses','les sardines fêlées','les lynx','les aigles','les givrés'];
 const TEAMS=[...PA,...PB];
-const TABS=["j1","j2","cls","info"];
+const TABS=["j1","j2","cls","clspo","info"];
 
 const J1=[
   {id:'j01',n:1,h:'07:00',t1:'sugars daddys',t2:'les givrés',pool:'B'},
@@ -249,34 +249,36 @@ const J1=[
   {surf:'20:40'},{id:'j28',n:28,h:'20:55',t1:'sugars daddys',t2:'les saucisses',pool:'B'},
   {id:'j29',n:29,h:'21:20',t1:'les saucissons briochés',t2:'les familys',pool:'A'},
   {id:'j30',n:30,h:'21:45',t1:'les sardines fêlées',t2:'les givrés',pool:'B'},
-  {surf:'22:10'},{sec:'⚔️ Barrages de qualification'},
+  {surf:'22:10'},
+];
+const J2=[
+  {sec:'🥅 Barrages — Sam. 11 Avril (22h25)'},
   {id:'m1',n:'B1',h:'22:25',lbl:'Barrage 1',dep1:{t:'rnk',p:'A',r:6},dep2:{t:'rnk',p:'B',r:3},dl:'6e A / 3e B'},
   {id:'m2',n:'B2',h:'22:50',lbl:'Barrage 2',dep1:{t:'rnk',p:'B',r:5},dep2:{t:'rnk',p:'A',r:4},dl:'5e B / 4e A'},
   {id:'m3',n:'B3',h:'23:15',lbl:'Barrage 3',dep1:{t:'rnk',p:'A',r:5},dep2:{t:'rnk',p:'B',r:4},dl:'5e A / 4e B'},
   {id:'m4',n:'B4',h:'23:40',lbl:'Barrage 4',dep1:{t:'rnk',p:'B',r:6},dep2:{t:'rnk',p:'A',r:3},dl:'6e B / 3e A'},
-];
-const J2=[
-  {id:'m5',n:'M5',h:'07:00',lbl:'Match 5',dep1:{t:'rnk',p:'B',r:2},dep2:{t:'win',m:'m1'},dl:'2e B / Gagn. B1'},
-  {id:'m6',n:'M6',h:'07:25',lbl:'Match 6',dep1:{t:'rnk',p:'A',r:1},dep2:{t:'win',m:'m2'},dl:'1er A / Gagn. B2'},
-  {id:'m7',n:'M7',h:'07:50',lbl:'Match 7',dep1:{t:'rnk',p:'B',r:1},dep2:{t:'win',m:'m3'},dl:'1er B / Gagn. B3'},
+  {sec:'🏆 Play-offs — Dim. 12 Avril'},
+  {id:'m5',n:'M1',h:'07:00',lbl:'Match 1',dep1:{t:'rnk',p:'B',r:2},dep2:{t:'win',m:'m1'},dl:'2e B / Gagn. Barrage 1'},
+  {id:'m6',n:'M2',h:'07:25',lbl:'Match 2',dep1:{t:'rnk',p:'A',r:1},dep2:{t:'win',m:'m2'},dl:'1er A / Gagn. Barrage 2'},
+  {id:'m7',n:'M3',h:'07:50',lbl:'Match 3',dep1:{t:'rnk',p:'B',r:1},dep2:{t:'win',m:'m3'},dl:'1er B / Gagn. Barrage 3'},
   {surf:'08:15'},
-  {id:'m8',n:'M8',h:'08:30',lbl:'Match 8',dep1:{t:'rnk',p:'A',r:2},dep2:{t:'win',m:'m4'},dl:'2e A / Gagn. B4'},
-  {id:'m9',n:'M9',h:'08:55',lbl:'Match 9',dep1:{t:'lose',m:'m1'},dep2:{t:'lose',m:'m2'},dl:'Perd. B1 / Perd. B2'},
-  {id:'m10',n:'M10',h:'09:20',lbl:'Match 10',dep1:{t:'lose',m:'m3'},dep2:{t:'lose',m:'m4'},dl:'Perd. B3 / Perd. B4'},
+  {id:'m8',n:'M4',h:'08:30',lbl:'Match 4',dep1:{t:'rnk',p:'A',r:2},dep2:{t:'win',m:'m4'},dl:'2e A / Gagn. Barrage 4'},
+  {id:'m9',n:'M5',h:'08:55',lbl:'Match 5',dep1:{t:'lose',m:'m1'},dep2:{t:'lose',m:'m2'},dl:'Perd. Barrage 1 / Perd. Barrage 2'},
+  {id:'m10',n:'M6',h:'09:20',lbl:'Match 6',dep1:{t:'lose',m:'m3'},dep2:{t:'lose',m:'m4'},dl:'Perd. Barrage 3 / Perd. Barrage 4'},
   {surf:'09:45'},
-  {id:'m11',n:'M11',h:'10:00',lbl:'Match 11',dep1:{t:'lose',m:'m5'},dep2:{t:'lose',m:'m6'},dl:'Perd. M5 / Perd. M6'},
-  {id:'m12',n:'M12',h:'10:25',lbl:'Match 12',dep1:{t:'lose',m:'m7'},dep2:{t:'lose',m:'m8'},dl:'Perd. M7 / Perd. M8'},
-  {id:'m13',n:'M13',h:'10:50',lbl:'Match 13',dep1:{t:'win',m:'m5'},dep2:{t:'win',m:'m6'},dl:'Gagn. M5 / Gagn. M6'},
+  {id:'m11',n:'M7',h:'10:00',lbl:'Match 7',dep1:{t:'lose',m:'m5'},dep2:{t:'lose',m:'m6'},dl:'Perd. Match 1 / Perd. Match 2'},
+  {id:'m12',n:'M8',h:'10:25',lbl:'Match 8',dep1:{t:'lose',m:'m7'},dep2:{t:'lose',m:'m8'},dl:'Perd. Match 3 / Perd. Match 4'},
+  {id:'m13',n:'M9',h:'10:50',lbl:'Match 9',dep1:{t:'win',m:'m5'},dep2:{t:'win',m:'m6'},dl:'Gagn. Match 1 / Gagn. Match 2'},
   {surf:'11:15'},
-  {id:'m14',n:'M14',h:'11:30',lbl:'Match 14',dep1:{t:'win',m:'m7'},dep2:{t:'win',m:'m8'},dl:'Gagn. M7 / Gagn. M8'},
-  {id:'m15',n:'M15',h:'11:55',lbl:'Match 15',dep1:{t:'lose',m:'m9'},dep2:{t:'lose',m:'m10'},dl:'Perd. M9 / Perd. M10'},
-  {id:'m16',n:'M16',h:'12:20',lbl:'Match 16',dep1:{t:'win',m:'m9'},dep2:{t:'win',m:'m10'},dl:'Gagn. M9 / Gagn. M10'},
+  {id:'m14',n:'M10',h:'11:30',lbl:'Match 10',dep1:{t:'win',m:'m7'},dep2:{t:'win',m:'m8'},dl:'Gagn. Match 3 / Gagn. Match 4'},
+  {id:'m15',n:'M11',h:'11:55',lbl:'Match 11',dep1:{t:'lose',m:'m9'},dep2:{t:'lose',m:'m10'},dl:'Perd. Match 5 / Perd. Match 6'},
+  {id:'m16',n:'M12',h:'12:20',lbl:'Match 12',dep1:{t:'win',m:'m9'},dep2:{t:'win',m:'m10'},dl:'Gagn. Match 5 / Gagn. Match 6'},
   {surf:'12:45'},
-  {id:'m17',n:'M17',h:'13:00',lbl:'Match 17',dep1:{t:'lose',m:'m11'},dep2:{t:'lose',m:'m12'},dl:'Perd. M11 / Perd. M12'},
-  {id:'m18',n:'M18',h:'13:25',lbl:'Match 18',dep1:{t:'win',m:'m11'},dep2:{t:'win',m:'m12'},dl:'Gagn. M11 / Gagn. M12'},
-  {id:'m19',n:'M19',h:'13:50',lbl:'Match 19',dep1:{t:'lose',m:'m13'},dep2:{t:'lose',m:'m14'},dl:'Perd. M13 / Perd. M14'},
+  {id:'m17',n:'M13',h:'13:00',lbl:'Match 13',dep1:{t:'lose',m:'m11'},dep2:{t:'lose',m:'m12'},dl:'Perd. Match 7 / Perd. Match 8'},
+  {id:'m18',n:'M14',h:'13:25',lbl:'Match 14',dep1:{t:'win',m:'m11'},dep2:{t:'win',m:'m12'},dl:'Gagn. Match 7 / Gagn. Match 8'},
+  {id:'m19',n:'M15',h:'13:50',lbl:'Match 15',dep1:{t:'lose',m:'m13'},dep2:{t:'lose',m:'m14'},dl:'Perd. Match 9 / Perd. Match 10'},
   {surf:'14:15'},
-  {id:'m20',n:'M20',h:'14:30',lbl:'Match 20',dep1:{t:'win',m:'m13'},dep2:{t:'win',m:'m14'},dl:'Gagn. M13 / Gagn. M14'},
+  {id:'m20',n:'M16',h:'14:30',lbl:'Match 16',dep1:{t:'win',m:'m13'},dep2:{t:'win',m:'m14'},dl:'Gagn. Match 9 / Gagn. Match 10'},
 ];
 const ALL=[...J1,...J2];
 let scores={};ALL.forEach(m=>{if(m.id&&!m.fem)scores[m.id]={s1:null,s2:null};});
@@ -351,15 +353,86 @@ function upLive(){
 
 function rTabs(){
   const bar=document.getElementById('tabs');if(!bar)return;
-  bar.innerHTML=TABS.map(t=>`<button class="tab${tab===t?' active':''}" data-tab="${t}"><span>${t==='j1'?'Jour 1':t==='j2'?'Jour 2':t==='cls'?'Class.':'Infos'}</span><span class="tcnt">${t==='j1'?countDone(J1):t==='j2'?countDone(J2):'&nbsp;'}</span></button>`).join('');
+  bar.innerHTML=TABS.map(t=>`<button class="tab${tab===t?' active':''}" data-tab="${t}"><span>${t==='j1'?'Sam.':t==='j2'?'Dim.':t==='cls'?'Poules':t==='clspo'?'Play-offs':'Infos'}</span><span class="tcnt">${t==='j1'?countDone(J1):t==='j2'?countDone(J2):'&nbsp;'}</span></button>`).join('');
 }
 
 function rContent(){
   const el=document.getElementById('content');if(!el)return;
   if(tab==='cls')el.innerHTML=rStand();
+  else if(tab==='clspo')el.innerHTML=rClsPo();
   else if(tab==='info')el.innerHTML=rInfos();
-  else if(tab==='j1')el.innerHTML=rList(J1,'Samedi 11 Avril 2026 — Jour 1','j1');
-  else el.innerHTML=rList(J2,'Dimanche 12 Avril 2026 — Jour 2','j2');
+  else if(tab==='j1')el.innerHTML=rList(J1,'Samedi 11 Avril 2026 — Phase de poule','j1');
+  else el.innerHTML=rList(J2,'Play-offs (Barrages Sam. soir + Matchs Dim.)','j2');
+}
+
+function getRes(id){
+  const sc=scores[id];
+  if(!sc||sc.s1==null||sc.s2==null)return null;
+  const s1=+sc.s1,s2=+sc.s2;
+  if(s1===s2)return null;
+  const r1=J2.find(m=>m.id===id)?.dep1?resolveT(J2.find(m=>m.id===id).dep1):{name:'?',known:false};
+  const r2=J2.find(m=>m.id===id)?.dep2?resolveT(J2.find(m=>m.id===id).dep2):{name:'?',known:false};
+  // also check ALL for barrages
+  const match=ALL.find(m=>m.id===id);
+  let t1n=match?.t1||r1.name,t2n=match?.t2||r2.name;
+  if(match?.dep1)t1n=resolveT(match.dep1).name;
+  if(match?.dep2)t2n=resolveT(match.dep2).name;
+  return {win:s1>s2?t1n:t2n, lose:s1>s2?t2n:t1n, s1,s2};
+}
+
+function rClsPo(){
+  // Compute positions from final matches
+  const pos=[];
+  const done=(id)=>{const sc=scores[id];return sc&&sc.s1!=null&&sc.s2!=null;};
+  
+  // M16 = winner 1st, loser 2nd
+  const r20=getRes('m20');
+  if(r20){pos.push({rank:1,team:r20.win,note:'🥇 Vainqueur'});pos.push({rank:2,team:r20.lose,note:'🥈 Finaliste'});}
+  // M15 = 3rd/4th
+  const r19=getRes('m19');
+  if(r19){pos.push({rank:3,team:r19.win,note:'🥉 3e place'});pos.push({rank:4,team:r19.lose,note:'4e place'});}
+  // M14 = 5th/6th
+  const r18=getRes('m18');
+  if(r18){pos.push({rank:5,team:r18.win,note:'5e place'});pos.push({rank:6,team:r18.lose,note:'6e place'});}
+  // M13 = 7th/8th
+  const r17=getRes('m17');
+  if(r17){pos.push({rank:7,team:r17.win,note:'7e place'});pos.push({rank:8,team:r17.lose,note:'8e place'});}
+  // M12 = 9th/10th
+  const r16=getRes('m16');
+  if(r16){pos.push({rank:9,team:r16.win,note:'9e place'});pos.push({rank:10,team:r16.lose,note:'10e place'});}
+  // M11 = 11th/12th
+  const r15=getRes('m15');
+  if(r15){pos.push({rank:11,team:r15.win,note:'11e place'});pos.push({rank:12,team:r15.lose,note:'12e place'});}
+
+  let h='<div class="content">';
+  h+='<div style="font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:900;color:var(--accent);text-transform:uppercase;letter-spacing:.5px;margin:0 0 10px;padding-bottom:4px;border-bottom:1px solid rgba(0,229,160,.2)">🏆 Classement Final</div>';
+  
+  if(pos.length===0){
+    h+='<div style="text-align:center;color:var(--muted);font-size:13px;padding:30px 0;font-family:'Barlow Condensed',sans-serif">Les résultats apparaîtront au fur et à mesure</div>';
+  } else {
+    const medals=['r1','r2','r3'];
+    h+=pos.map(p=>`<div class="sr">
+      <div class="rk ${medals[p.rank-1]||''}">${p.rank}</div>
+      <div class="tn">${p.team}</div>
+      <div style="grid-column:3/7;color:var(--muted);font-size:12px;font-family:'Barlow Condensed',sans-serif">${p.note}</div>
+    </div>`).join('');
+  }
+  
+  // Show remaining matches yet to determine positions
+  const remaining=[];
+  if(!done('m20'))remaining.push({lbl:'Match 16 (Finale)',id:'m20'});
+  if(!done('m19'))remaining.push({lbl:'Match 15 (3e place)',id:'m19'});
+  if(!done('m18'))remaining.push({lbl:'Match 14 (5e/6e)',id:'m18'});
+  if(!done('m17'))remaining.push({lbl:'Match 13 (7e/8e)',id:'m17'});
+  if(!done('m16'))remaining.push({lbl:'Match 12 (9e/10e)',id:'m16'});
+  if(!done('m15'))remaining.push({lbl:'Match 11 (11e/12e)',id:'m15'});
+  
+  if(remaining.length>0){
+    h+='<div style="font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:1.5px;padding:12px 0 6px;border-top:1px solid var(--surf);margin-top:8px">Matchs à jouer</div>';
+    h+=remaining.map(r=>`<div style="background:var(--ice2);border-radius:6px;padding:8px 10px;margin-bottom:4px;font-family:'Barlow Condensed',sans-serif;font-size:13px;color:var(--muted)">${r.lbl}</div>`).join('');
+  }
+  
+  return h+'</div>';
 }
 
 function rList(list,dayLbl,dayTab){
@@ -384,8 +457,8 @@ function rList(list,dayLbl,dayTab){
     const myc=mine?' myteam-match':'';
     const t1c=`team l${w1?' w':''}${t1n===myTeam?' myteam-name':''}${!t1k?' unk':''}`;
     const t2c=`team r${w2?' w':''}${t2n===myTeam?' myteam-name':''}${!t2k?' unk':''}`;
-    const lbl=m.lbl?`<span class="flbl cl">${m.lbl}</span>`:'';
-    if(admin){
+    const lbl=m.lbl?`<span class="flbl cl" style="font-size:9px;white-space:nowrap">${m.lbl}</span>`:''
+;    if(admin){
       h+=`<div class="match${dn?' done':''}${myc}" style="grid-template-columns:40px 50px 1fr 28px 28px 1fr 22px">
         <div class="mnum">#${m.n}</div>
         <div class="mtime">${m.h}</div>
