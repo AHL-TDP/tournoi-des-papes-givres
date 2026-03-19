@@ -377,7 +377,7 @@ function rTabs(){
   var labels={sam:"Sam.",dim:"Dim.",cls:"Poules",final:"Final",snack:"🍽 Snacking",info:"Infos"};
   bar.innerHTML=TABS.map(function(t){
     var cnt=t==="sam"?countDone(SAM):t==="dim"?countDone(DIM):"&nbsp;";
-    return '<button class="tab'+(tab===t?" active":"")+(t==="snack"?" snack-tab":"")+' data-tab="'+t+'"><span>'+labels[t]+'</span><span class="tcnt">'+cnt+'</span></button>';
+    return '<button class="tab'+(tab===t?" active":"")+(t==="snack"?" snack-tab":"")+'" data-tab="'+t+'"><span>'+labels[t]+'</span><span class="tcnt">'+cnt+'</span></button>';
   }).join("");
 }
 
